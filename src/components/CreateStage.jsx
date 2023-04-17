@@ -9,7 +9,11 @@ function CreateStage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createStage(stageName, calculateStageId(stages));
+
+    if (stageName !== '') {
+      createStage(stageName, calculateStageId(stages));
+    }
+    setStageName('');
   };
 
   return (

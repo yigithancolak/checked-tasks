@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 2px solid black;
   width: 90%;
   min-height: 50rem;
 }
@@ -14,12 +13,16 @@
   border: 2px solid $color-grey-dark;
   margin-top: 3rem;
   min-height: 8rem;
+  border-radius: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  background-color: $color-white;
 
   &__header {
     background-color: $color-grey-light-2;
     padding: 0.5rem 1rem;
     position: relative;
     height: 4rem;
+    border-radius: 0.8rem 0.8rem 0 0;
 
     display: flex;
 
@@ -40,9 +43,23 @@
       top: 50%;
       transform: translate(-50%, -50%);
     }
+
+    &__edit {
+      width: 85%;
+
+      input {
+        padding: 0.3rem;
+      }
+    }
   }
 
   &__tasks {
     padding: 1rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .stage {
+    width: 90%;
   }
 }

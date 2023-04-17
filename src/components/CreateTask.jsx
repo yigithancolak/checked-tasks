@@ -7,7 +7,9 @@ function CreateTask({ stageId }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createTask(taskName, stageId);
+    if (taskName !== '') {
+      createTask(taskName, stageId);
+    }
     setTaskName('');
   };
 

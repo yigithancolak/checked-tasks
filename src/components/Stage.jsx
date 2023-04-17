@@ -18,7 +18,9 @@ function Stage({ stage }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    editStage(editedName, stageId);
+    if (editedName !== '') {
+      editStage(editedName, stageId);
+    }
     setEditMode(false);
   };
   const isAllChecked = areAllTasksCheckedInStage(stageId, stages);
@@ -31,7 +33,7 @@ function Stage({ stage }) {
     <div className='stage'>
       <div className={completed ? 'stage__header completed' : 'stage__header'}>
         {editMode ? (
-          <form onSubmit={handleSubmit}>
+          <form className='stage__header__edit' onSubmit={handleSubmit}>
             <input
               value={editedName}
               onChange={(e) => setEditedName(e.target.value)}
