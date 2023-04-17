@@ -4,7 +4,10 @@ import { GiConfirmed } from 'react-icons/gi';
 import Task from './Task';
 import CreateTask from './CreateTask';
 import { useAppContext } from '../context/app-context';
-import { areAllTasksCheckedInStage } from '../utils/helpers';
+import {
+  areAllTasksCheckedInStage,
+  arePreviousStagesCompleted,
+} from '../utils/helpers';
 
 function Stage({ stage }) {
   const { stageId, stageName, tasks, completed } = stage;
