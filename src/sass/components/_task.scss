@@ -1,0 +1,18 @@
+.task {
+  display: flex;
+  padding: 0.5rem 1rem;
+  border: 1px solid $color-grey-light-2;
+  margin-bottom: 1rem;
+  position: relative;
+
+  span {
+    font-size: 1.4rem;
+  }
+
+  &__buttons {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}

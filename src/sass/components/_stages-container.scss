@@ -1,0 +1,48 @@
+.stages-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid black;
+  width: 90%;
+  min-height: 50rem;
+}
+
+.stage {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  border: 2px solid $color-grey-dark;
+  margin-top: 3rem;
+  min-height: 8rem;
+
+  &__header {
+    background-color: $color-grey-light-2;
+    padding: 0.5rem 1rem;
+    position: relative;
+    height: 4rem;
+
+    display: flex;
+
+    &.completed {
+      background-color: $color-primary;
+    }
+
+    h3 {
+      font-size: $default-font-size;
+    }
+
+    &--buttons {
+      display: flex;
+      height: 3rem;
+      width: 5rem;
+      position: absolute;
+      right: -2rem;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  &__tasks {
+    padding: 1rem;
+  }
+}
