@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
-import { useAppContext } from '../context/app-context';
+import { useState } from 'react'
+import { useAppContext } from '../context/AppContext'
+import { CREATE_TASK } from '../reducer/actions'
 
-function CreateTask({ stageId }) {
-  const [taskName, setTaskName] = useState('');
-  const { createTask } = useAppContext();
+export const CreateTask = ({ stageId }) => {
+  const [taskName, setTaskName] = useState('')
+  const { createTask, dispatch } = useAppContext()
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     if (taskName !== '') {
-      createTask(taskName, stageId);
+      dispatch({ type: CREATE_TASK, payload: { taskName, stageId } })
     }
-    setTaskName('');
-  };
+    setTaskName('')
+  }
 
   return (
     <form className='create-task' onSubmit={handleSubmit}>
@@ -20,14 +21,12 @@ function CreateTask({ stageId }) {
         type='text'
         placeholder='Task name'
         onChange={(e) => {
-          setTaskName(e.target.value);
+          setTaskName(e.target.value)
         }}
       />
       <button type='submit' className='btn btn--secondary'>
         Add
       </button>
     </form>
-  );
+  )
 }
-
-export default CreateTask;

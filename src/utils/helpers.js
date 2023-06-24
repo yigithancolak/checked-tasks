@@ -1,31 +1,25 @@
-export const calculateStageId = (stages) => {
-  const id = stages.length + 1;
-
-  return id;
-};
-
 export const arePreviousStagesCompleted = (stageId, stages) => {
   if (stageId === 1) {
-    return true;
+    return true
   }
 
   for (let i = 0; i < stages.length; i++) {
-    const stage = stages[i];
+    const stage = stages[i]
 
     if (stage.stageId < stageId && !stage.completed) {
-      return false;
+      return false
     }
   }
 
-  return true;
-};
+  return true
+}
 
 export const areAllTasksCheckedInStage = (stageId, stages) => {
-  const stage = stages.find((stage) => stage.stageId === stageId);
+  const stage = stages.find((stage) => stage.stageId === stageId)
 
   if (stage.tasks.length < 1) {
-    return false;
+    return false
   }
 
-  return stage.tasks.every((task) => task.checked);
-};
+  return stage.tasks.every((task) => task.checked)
+}

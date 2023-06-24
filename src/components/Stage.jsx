@@ -1,33 +1,39 @@
-import React, { useEffect, useState } from 'react';
-import { AiOutlineClose, AiOutlineEdit } from 'react-icons/ai';
-import { GiConfirmed } from 'react-icons/gi';
-import Task from './Task';
-import CreateTask from './CreateTask';
-import { useAppContext } from '../context/app-context';
-import {
-  areAllTasksCheckedInStage,
-  arePreviousStagesCompleted,
-} from '../utils/helpers';
+import { useEffect, useState } from 'react'
+import { AiOutlineClose, AiOutlineEdit } from 'react-icons/ai'
+import { GiConfirmed } from 'react-icons/gi'
+import { useAppContext } from '../context/AppContext'
+import { COMPLETE_STAGE, EDIT_STAGE, REMOVE_STAGE } from '../reducer/actions'
+import { areAllTasksCheckedInStage } from '../utils/helpers'
+import { CreateTask } from './CreateTask'
+import { Task } from './Task'
 
-function Stage({ stage }) {
-  const { stageId, stageName, tasks, completed } = stage;
-  const [editMode, setEditMode] = useState(false);
-  const [editedName, setEditedName] = useState(stageName);
+export const Stage = ({ stage }) => {
+  const { stageId, stageName, tasks, completed } = stage
+  const [editMode, setEditMode] = useState(false)
+  const [editedName, setEditedName] = useState(stageName)
 
-  const { editStage, removeStage, stages, completeStage } = useAppContext();
+  const { stages, dispatch } = useAppContext()
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     if (editedName !== '') {
-      editStage(editedName, stageId);
+      dispatch({ type: EDIT_STAGE, payload: { name: editedName, stageId } })
+
+      setEditMode(false)
     }
-    setEditMode(false);
-  };
-  const isAllChecked = areAllTasksCheckedInStage(stageId, stages);
+  }
+  const isAllChecked = areAllTasksCheckedInStage(stageId, stages)
 
   useEffect(() => {
-    completeStage(stageId, isAllChecked);
-  }, [isAllChecked]);
+    dispatch({
+      type: COMPLETE_STAGE,
+      payload: { stageId, isComplete: isAllChecked }
+    })
+  }, [isAllChecked])
+
+  const removeStage = () => {
+    dispatch({ type: REMOVE_STAGE, payload: stageId })
+  }
 
   return (
     <div className='stage'>
@@ -35,6 +41,7 @@ function Stage({ stage }) {
         {editMode ? (
           <form className='stage__header__edit' onSubmit={handleSubmit}>
             <input
+              autoFocus
               value={editedName}
               onChange={(e) => setEditedName(e.target.value)}
               type='text'
@@ -50,25 +57,23 @@ function Stage({ stage }) {
           ) : (
             <AiOutlineEdit
               onClick={() => {
-                setEditMode(true);
+                setEditMode(true)
               }}
               className='stage-edit-btn'
             />
           )}
           <AiOutlineClose
             className='stage-remove-btn'
-            onClick={() => removeStage(stageId)}
+            onClick={() => removeStage()}
           />
         </div>
       </div>
       <CreateTask stageId={stageId} />
       <div className='stage__tasks'>
         {tasks.map((task, index) => {
-          return <Task key={index} task={task} stageId={stageId} />;
+          return <Task key={index} task={task} stageId={stageId} />
         })}
       </div>
     </div>
-  );
+  )
 }
-
-export default Stage;

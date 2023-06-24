@@ -1,12 +1,21 @@
-import React from 'react';
-import { AiOutlineCheck } from 'react-icons/ai';
-import { BsFillTrashFill } from 'react-icons/bs';
-import { useAppContext } from '../context/app-context';
-import { arePreviousStagesCompleted } from '../utils/helpers';
+import { AiOutlineCheck } from 'react-icons/ai'
+import { BsFillTrashFill } from 'react-icons/bs'
+import { useAppContext } from '../context/AppContext'
+import { CHECK_TASK, REMOVE_TASK } from '../reducer/actions'
+import { arePreviousStagesCompleted } from '../utils/helpers'
 
-function Task({ task, stageId }) {
-  const { taskId, taskName, checked } = task;
-  const { checkTask, removeTask, stages } = useAppContext();
+export const Task = ({ task, stageId }) => {
+  const { taskId, taskName, checked } = task
+  const { stages, dispatch } = useAppContext()
+
+  const handleTaskChecking = () => {
+    dispatch({ type: CHECK_TASK, payload: { stageId, taskId } })
+  }
+
+  const handleRemoveTask = () => {
+    dispatch({ type: REMOVE_TASK, payload: { stageId, taskId } })
+  }
+
   return (
     <div className='task'>
       <div className='task__header'>
@@ -16,20 +25,14 @@ function Task({ task, stageId }) {
         {arePreviousStagesCompleted(stageId, stages) && (
           <AiOutlineCheck
             className={checked ? 'task-edit-btn checked' : 'task-edit-btn'}
-            onClick={() => {
-              checkTask(stageId, taskId);
-            }}
+            onClick={handleTaskChecking}
           />
         )}
         <BsFillTrashFill
           className='task-remove-btn'
-          onClick={() => {
-            removeTask(stageId, taskId);
-          }}
+          onClick={handleRemoveTask}
         />
       </div>
     </div>
-  );
+  )
 }
-
-export default Task;

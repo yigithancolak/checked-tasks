@@ -1,20 +1,22 @@
-import React from 'react';
-import { useState } from 'react';
-import { useAppContext } from '../context/app-context';
-import { calculateStageId } from '../utils/helpers';
+import { useState } from 'react'
+import { useAppContext } from '../context/AppContext'
+import { CREATE_STAGE } from '../reducer/actions'
 
-function CreateStage() {
-  const { stages, createStage } = useAppContext();
-  const [stageName, setStageName] = useState('');
+export const CreateStage = () => {
+  const { dispatch } = useAppContext()
+  const [stageName, setStageName] = useState('')
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     if (stageName !== '') {
-      createStage(stageName, calculateStageId(stages));
+      dispatch({
+        type: CREATE_STAGE,
+        payload: { stageName }
+      })
+      setStageName('')
     }
-    setStageName('');
-  };
+  }
 
   return (
     <section className='create-stage'>
@@ -23,7 +25,7 @@ function CreateStage() {
           value={stageName}
           type='text'
           onChange={(e) => {
-            setStageName(e.target.value);
+            setStageName(e.target.value)
           }}
         />
         <button className='btn btn--primary u-margin-top-small' type='submit'>
@@ -31,7 +33,5 @@ function CreateStage() {
         </button>
       </form>
     </section>
-  );
+  )
 }
-
-export default CreateStage;
