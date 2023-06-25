@@ -7,7 +7,7 @@ export const StagesContainer = () => {
   return (
     <section className='stages-container u-margin-top-big'>
       {stages.map((stage, index) => {
-        return <Stage key={index} stage={stage} />
+        return <Stage key={stage.stageId} stage={stage} />
       })}
     </section>
   )

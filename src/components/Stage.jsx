@@ -71,7 +71,7 @@ export const Stage = ({ stage }) => {
       <CreateTask stageId={stageId} />
       <div className='stage__tasks'>
         {tasks.map((task, index) => {
-          return <Task key={index} task={task} stageId={stageId} />
+          return <Task key={task.taskId} task={task} stageId={stageId} />
         })}
       </div>
     </div>
